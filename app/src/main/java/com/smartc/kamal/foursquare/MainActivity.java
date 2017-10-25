@@ -25,6 +25,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
   private List<VenueModel> venuesList;
   private RecyclerView.Adapter venuesRecyclerAdapter;
   private MainController mainController;
+  TextView mNoData;
 
   int MY_PERMISSIONS_REQUEST_FIND_LOCATION = 0;
 
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     venuesList = new ArrayList<>();
     mainController = new MainControllerImpl();
 
+    mNoData = (TextView) findViewById(R.id.no_data);
     RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.venues_recycler_view);
     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
 
@@ -134,9 +137,9 @@ public class MainActivity extends AppCompatActivity {
       double fromLat = location.getLatitude();
       double fromLong = location.getLongitude();
       String lo = fromLat+","+fromLong;
-      mainController.getVenuesData(lo, venuesList, venuesRecyclerAdapter, MainActivity.this);
+      mainController.getVenuesData(lo,mNoData, venuesList, venuesRecyclerAdapter, MainActivity.this);
     }else {
-      mainController.getVenuesData("30.154440,%2031.357501", venuesList, venuesRecyclerAdapter, MainActivity.this);
+      mainController.getVenuesData("30.154440,%2031.357501", mNoData,venuesList, venuesRecyclerAdapter, MainActivity.this);
     }
 
   }
